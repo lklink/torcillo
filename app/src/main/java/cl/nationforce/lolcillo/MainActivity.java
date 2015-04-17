@@ -1,11 +1,12 @@
 package cl.nationforce.lolcillo;
 
+
+import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.view.inputmethod.InputMethodManager;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -17,10 +18,8 @@ import android.view.View;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,7 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity{
    //variables para icono
     private String urlicono;
     private Bitmap loadedImage;
@@ -46,6 +45,7 @@ public class MainActivity extends ActionBarActivity {
     JSONArray user = null;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,26 +54,33 @@ public class MainActivity extends ActionBarActivity {
         usuarioBienvenidaText=(EditText)findViewById(R.id.usuarioBienvenidaText);
         serverSpinner.setOnItemSelectedListener(new SelectingItem());
         sgteButton=(Button)findViewById(R.id.sgteButton);
-
         sgteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText myEditText = (EditText) findViewById(R.id.usuarioBienvenidaText);
-                InputMethodManager imm = (InputMethodManager)getSystemService(
-                        MainActivity.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
+                    @Override
+                    public void onClick(View v) {
+                        esconderTeclado();
+                        setContentView(R.layout.fragment_pantalla_principal);
 
-                setContentView(R.layout.fragment_pantalla_principal);
+                        url = "https://na.api.pvp.net/api/lol/las/v1.4/summoner/by-name/" + String.valueOf(usuarioBienvenidaText.getText()) + "?api_key=6fc6de22-229a-47d4-b292-b9821943ffff";
 
-                url = "https://na.api.pvp.net/api/lol/las/v1.4/summoner/by-name/" + String.valueOf(usuarioBienvenidaText.getText()) + "?api_key=6fc6de22-229a-47d4-b292-b9821943ffff";
+                        new JSONParse().execute(url);
 
-                new JSONParse().execute(url);
-
-            }
-        });
+                    }
+                });
     }
 
-    private class JSONParse extends AsyncTask<String, String, JSONObject> {
+
+    public void esconderTeclado(){
+
+        // esconde teclado al presionar boton sgte
+
+       InputMethodManager imm = (InputMethodManager) getSystemService(
+                    MainActivity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(usuarioBienvenidaText.getWindowToken(), 0);
+        }
+
+
+
+        private class JSONParse extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         @Override
         protected void onPreExecute() {
