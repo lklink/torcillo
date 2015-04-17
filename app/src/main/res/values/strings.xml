@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="servidores">
-        <item>Latin America Sur (las)</item>
+        <item>Latin America Sur (las</item>
     </string-array>
 
     <string name="title_activity_pantalla_principal">PantallaPrincipal</string>
