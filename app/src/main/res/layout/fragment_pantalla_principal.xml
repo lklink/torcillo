@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    tools:context="cl.nationforce.lolcillo.PantallaPrincipal$PlaceholderFragment"
+    android:id="@+id/rl">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fondoperfilimageViewf"
+        android:background="@drawable/perfilbg"
+        android:clickable="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/usuarioPrincipalTextView"
+        android:textStyle="bold"
+        android:textSize="@dimen/abc_text_size_headline_material"
+        android:autoText="false"
+        android:textColor="#ffb53312"
+        android:layout_below="@+id/section_label"
+        android:layout_toRightOf="@+id/usuarioIconoImageView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/levelUsuarioTextView"
+        android:textColor="#fff8f4ff"
+        android:textSize="@dimen/abc_text_size_title_material_toolbar"
+        android:layout_below="@+id/usuarioPrincipalTextView"
+        android:layout_toRightOf="@+id/usuarioIconoImageView"
+        android:layout_toEndOf="@+id/usuarioIconoImageView" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/usuarioIconoImageView"
+        android:paddingLeft="0dp"
+        android:layout_alignTop="@+id/usuarioPrincipalTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp" />
+
+</RelativeLayout>

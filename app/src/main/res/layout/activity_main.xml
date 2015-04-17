@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido invocador"
+        android:id="@+id/bienvenidoTitleText"
+        android:layout_marginTop="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingresa tu nombre de usuario y servidor para empezar"
+        android:id="@+id/bienvenidoText"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/bienvenidoTitleText"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Usuario:"
+        android:id="@+id/usuarioText"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/bienvenidoText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Servidor:"
+        android:id="@+id/servidorText"
+        android:layout_below="@+id/usuarioText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="19dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/usuarioBienvenidaText"
+        android:layout_alignTop="@+id/usuarioText"
+        android:layout_alignRight="@+id/bienvenidoText"
+        android:layout_alignEnd="@+id/bienvenidoText"
+        android:textColor="#ff000000"
+        android:layout_above="@+id/serverSpinner"
+        android:layout_alignLeft="@+id/bienvenidoTitleText"
+        android:layout_alignStart="@+id/bienvenidoTitleText" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/serverSpinner"
+        android:layout_alignTop="@+id/servidorText"
+        android:layout_alignLeft="@+id/usuarioBienvenidaText"
+        android:layout_alignStart="@+id/usuarioBienvenidaText"
+        android:entries="@array/servidores"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Siguiente"
+        android:id="@+id/sgteButton"
+        android:layout_below="@+id/serverSpinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp" />
+
+</RelativeLayout>
