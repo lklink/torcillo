@@ -1,6 +1,7 @@
 package cl.nationforce.lolcillo;
 
 import android.app.ProgressDialog;
+import android.view.inputmethod.InputMethodManager;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -57,7 +58,10 @@ public class MainActivity extends ActionBarActivity {
         sgteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                EditText myEditText = (EditText) findViewById(R.id.usuarioBienvenidaText);
+                InputMethodManager imm = (InputMethodManager)getSystemService(
+                        MainActivity.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
 
                 setContentView(R.layout.fragment_pantalla_principal);
 
