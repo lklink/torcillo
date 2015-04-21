@@ -48,7 +48,7 @@ public class PantallaPrincipal extends ActionBarActivity {
         mDrawerList = (ListView)findViewById(R.id.navList);
         addDrawerItems();
 
-        //asdf
+        //asdfd
 
         url = "https://na.api.pvp.net/api/lol/las/v1.4/summoner/by-name/" + usuarioBienvenidaText + "?api_key=6fc6de22-229a-47d4-b292-b9821943ffff";
 
