@@ -67,29 +67,30 @@
                 android:layout_height="100dp"
                 android:id="@+id/usuarioIconoImageView"
                 android:paddingLeft="0dp"
-                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/section_label"
                 android:layout_toEndOf="@+id/section_label"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="120dp"
+            android:layout_height="150dp"
             android:layout_below="@+id/relativeLayout"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentStart="false"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:background="#40d0d0d0">
+            android:background="#40d0d0d0"
+            android:id="@+id/relativeLayoutteamsolo">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ranked 3v3"
-                android:id="@+id/ranked3v3TextView"
+                android:text="Ranked Solo Queue"
+                android:id="@+id/rankedSoloTextView"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -99,6 +100,79 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:background="#ff171717" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/rankedSoloImageView"
+                android:layout_below="@+id/rankedSoloTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/tierSoloTextView"
+                android:layout_alignTop="@+id/rankedSoloImageView"
+                android:layout_toRightOf="@+id/rankedSoloImageView"
+                android:layout_marginTop="2dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="#ffb53312"
+                android:layout_marginLeft="5dp"
+                android:textSize="@dimen/abc_text_size_headline_material"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/lpSoloTextView"
+                android:textColor="#ffffffff"
+                android:layout_below="@+id/tierSoloTextView"
+                android:layout_alignLeft="@+id/tierSoloTextView"
+                android:layout_alignStart="@+id/tierSoloTextView"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/kdaSoloTextView"
+                android:textColor="#ffffffff"
+                android:layout_below="@+id/lpSoloTextView"
+                android:layout_alignLeft="@+id/lpSoloTextView"
+                android:layout_alignStart="@+id/lpSoloTextView"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/winlossSoloTextView"
+                android:textColor="#ffffffff"
+                android:layout_below="@+id/kdaSoloTextView"
+                android:layout_alignLeft="@+id/lpSoloTextView"
+                android:layout_alignStart="@+id/lpSoloTextView"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/leagueSoloTextView"
+                android:textColor="#ffffffff"
+                android:layout_below="@+id/winlossSoloTextView"
+                android:layout_alignLeft="@+id/winlossSoloTextView"
+                android:layout_alignStart="@+id/winlossSoloTextView"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
     </RelativeLayout>
