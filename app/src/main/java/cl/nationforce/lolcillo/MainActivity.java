@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity{
                         i.putExtra("usuarioBienvenidaText",String.valueOf(usuarioBienvenidaText.getText()));
                         startActivity(i);
                         //setContentView(R.layout.fragment_pantalla_principal);
-
+                        //asdf
                         //url = "https://na.api.pvp.net/api/lol/las/v1.4/summoner/by-name/" + String.valueOf(usuarioBienvenidaText.getText()) + "?api_key=6fc6de22-229a-47d4-b292-b9821943ffff";
 
                         //new JSONParse().execute(url);
