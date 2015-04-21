@@ -82,63 +82,6 @@ public class MainActivity extends ActionBarActivity{
             imm.hideSoftInputFromWindow(usuarioBienvenidaText.getWindowToken(), 0);
         }
 
-
-
-        private class JSONParse extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-//            uid = (TextView)findViewById(R.id.uid);
-//            name1 = (TextView)findViewById(R.id.name);
-//            email1 = (TextView)findViewById(R.id.email);
-            usuarioPrincipalTextView = (TextView) findViewById(R.id.usuarioPrincipalTextView);
-            levelUsuarioTextView = (TextView) findViewById(R.id.levelUsuarioTextView);
-            pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Recibiendo datos...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-        @Override
-        protected JSONObject doInBackground(String... args) {
-            JsonParser jParser = new JsonParser();
-            // Getting JSON from URL
-            JSONObject json = jParser.getJSONFromUrl(args[0]);
-            return json;
-        }
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
-            try {
-                // Getting JSON Array
-               // user = json.getJSONArray(String.valueOf(usuarioBienvenidaText.getText()));
-                //JSONObject c = user.getJSONObject(0);
-                // Storing  JSON item in a Variable
-                String id = json.getJSONObject(String.valueOf(usuarioBienvenidaText.getText())).getString("id");
-                String name = json.getJSONObject(String.valueOf(usuarioBienvenidaText.getText())).getString("name");
-                String profileIconId = json.getJSONObject(String.valueOf(usuarioBienvenidaText.getText())).getString("profileIconId");
-                int summonerLevel = json.getJSONObject(String.valueOf(usuarioBienvenidaText.getText())).getInt("summonerLevel");
-                int revisionDate = json.getJSONObject(String.valueOf(usuarioBienvenidaText.getText())).getInt("revisionDate");
-                //Set JSON Data in TextView
-                usuarioPrincipalTextView.setText(name);
-                levelUsuarioTextView.setText("Nivel: "+ summonerLevel);
-                IV_Profile = (ImageView)findViewById(R.id.usuarioIconoImageView);
-                urlicono = "http://avatar.leagueoflegends.com/las/"+ name +".png";
-                Picasso.with(MainActivity.this)
-                        .load(urlicono)
-                        .into(IV_Profile);
-
-
-                //descargarArchivo(urlicono);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
