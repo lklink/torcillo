@@ -1,6 +1,8 @@
 package cl.nationforce.lolcillo;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -16,79 +18,106 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 
-public class PantallaPrincipal extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
-    private CharSequence mTitle;
+public class PantallaPrincipal extends ActionBarActivity {
+
+
+    String url;
+    String usuarioBienvenidaText;
+    TextView usuarioPrincipalTextView, levelUsuarioTextView;
+    ImageView IV_Profile;
+    private String urlicono;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
+        usuarioBienvenidaText = getIntent().getStringExtra("usuarioBienvenidaText");
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        addDrawerItems();
 
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        url = "https://na.api.pvp.net/api/lol/las/v1.4/summoner/by-name/" + usuarioBienvenidaText + "?api_key=6fc6de22-229a-47d4-b292-b9821943ffff";
+
+        new JSONParse().execute(url);
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+    private void addDrawerItems() {
+        String[] osArray = { "Buscar", "Opciones"};
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
     }
 
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
+    private class JSONParse extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            uid = (TextView)findViewById(R.id.uid);
+//            name1 = (TextView)findViewById(R.id.name);
+//            email1 = (TextView)findViewById(R.id.email);
+            usuarioPrincipalTextView = (TextView) findViewById(R.id.usuarioPrincipalTextView);
+            levelUsuarioTextView = (TextView) findViewById(R.id.levelUsuarioTextView);
+            pDialog = new ProgressDialog(PantallaPrincipal.this);
+            pDialog.setMessage("Recibiendo datos...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            JsonParser jParser = new JsonParser();
+            // Getting JSON from URL
+            JSONObject json = jParser.getJSONFromUrl(args[0]);
+            return json;
+        }
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            try {
+                // Getting JSON Array
+                // user = json.getJSONArray(String.valueOf(usuarioBienvenidaText.getText()));
+                //JSONObject c = user.getJSONObject(0);
+                // Storing  JSON item in a Variable
+                String id = json.getJSONObject(usuarioBienvenidaText).getString("id");
+                String name = json.getJSONObject(usuarioBienvenidaText).getString("name");
+                String profileIconId = json.getJSONObject(usuarioBienvenidaText).getString("profileIconId");
+                int summonerLevel = json.getJSONObject(usuarioBienvenidaText).getInt("summonerLevel");
+                int revisionDate = json.getJSONObject(usuarioBienvenidaText).getInt("revisionDate");
+                //Set JSON Data in TextView
+                usuarioPrincipalTextView.setText(name);
+                levelUsuarioTextView.setText("Nivel: "+ summonerLevel);
+                IV_Profile = (ImageView)findViewById(R.id.usuarioIconoImageView);
+                urlicono = "http://avatar.leagueoflegends.com/las/"+ name +".png";
+                Picasso.with(PantallaPrincipal.this)
+                        .load(urlicono)
+                        .into(IV_Profile);
+
+
+                //descargarArchivo(urlicono);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
-
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.pantalla_principal, menu);
-            restoreActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
@@ -104,46 +133,6 @@ public class PantallaPrincipal extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_pantalla_principal, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((PantallaPrincipal) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
     }
 
 }

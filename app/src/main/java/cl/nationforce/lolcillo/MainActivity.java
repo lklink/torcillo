@@ -1,6 +1,7 @@
 package cl.nationforce.lolcillo;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.view.inputmethod.InputMethodManager;
@@ -58,11 +59,14 @@ public class MainActivity extends ActionBarActivity{
                     @Override
                     public void onClick(View v) {
                         esconderTeclado();
-                        setContentView(R.layout.fragment_pantalla_principal);
+                        Intent i = new Intent (MainActivity.this,PantallaPrincipal.class);
+                        i.putExtra("usuarioBienvenidaText",String.valueOf(usuarioBienvenidaText.getText()));
+                        startActivity(i);
+                        //setContentView(R.layout.fragment_pantalla_principal);
 
-                        url = "https://na.api.pvp.net/api/lol/las/v1.4/summoner/by-name/" + String.valueOf(usuarioBienvenidaText.getText()) + "?api_key=6fc6de22-229a-47d4-b292-b9821943ffff";
+                        //url = "https://na.api.pvp.net/api/lol/las/v1.4/summoner/by-name/" + String.valueOf(usuarioBienvenidaText.getText()) + "?api_key=6fc6de22-229a-47d4-b292-b9821943ffff";
 
-                        new JSONParse().execute(url);
+                        //new JSONParse().execute(url);
 
                     }
                 });
